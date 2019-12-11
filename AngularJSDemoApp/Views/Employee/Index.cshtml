@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/employee.js"></script>
+<link href="~/Content/employee.css" rel="stylesheet" />
+
+@*Two way Binding*@
+<div ng-app="employeeModule" ng-controller="employeeController">
+    <div class="new-emp">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="col-sm-5">
+                    <div class="col-sm-6">
+                        First Name
+                    </div>
+                    <div class="col-sm-6">
+                        <input ng-model="newEmp.FirstName" />
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="col-sm-6">
+                        Last Name
+                    </div>
+                    <div class="col-sm-6">
+                        <input ng-model="newEmp.LastName" />
+                    </div>
+                </div>
+            </div>
+        </div><div class="row ">
+            <div class="col-sm-10">
+                <div class="col-sm-5">
+                    <div class="col-sm-6">
+                        Age
+                    </div>
+                    <div class="col-sm-6">
+                        <input ng-model="newEmp.Age" />
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="col-sm-6">
+                        State
+                    </div>
+                    <div class="col-sm-6">
+                        <select ng-model="newEmp.selectedState" >
+                            <option ng-repeat="option in states" value="{{option.Id}}">{{option.StateName}}</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="col-sm-5">
+                    <div class="col-sm-6">
+                        City
+                    </div>
+                    <div class="col-sm-6">
+                        <select ng-model="newEmp.selectedCity">
+                            <option ng-repeat="option in cities | filter:{ StateId: newEmp.selectedState }" value="{{option.Id}}">{{option.CityName}}</option>  @*filters*@
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="col-sm-5">
+                    <div class="col-sm-6">
+                        <input type="button" value="Add" ng-click="AddNewEmployee()" /> @*ng-click event*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="row" ng-repeat="emp in employeeList"> @*ng-repeat*@
+            <div class="col-sm-2" ng-bind="emp.FirstName"></div>
+            <div class="col-sm-2" ng-bind="emp.LastName"></div>
+            <div class="col-sm-2" ng-bind="emp.Age"></div>
+            <div class="col-sm-2" ng-bind="emp.City"></div>
+            <div class="col-sm-2" ng-bind="emp.State"></div>
+        </div>
+    </div>
+</div>
